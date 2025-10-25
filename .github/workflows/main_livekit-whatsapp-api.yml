@@ -30,6 +30,9 @@ jobs:
         run: |
           python -m venv v_lk_w
           source v_lk_w/bin/activate
+          echo directory
+          pwd
+          ls
           pip install -r lk_requirements.txt
           echo finish_pip_installation
                 
@@ -66,3 +69,4 @@ jobs:
           slot-name: 'Production'
 
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_D09DE35BC8274D558C54C9FFD8BB2B09 }}
+
