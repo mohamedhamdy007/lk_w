@@ -33,7 +33,7 @@ jobs:
           echo directory
           pwd
           ls
-          pip install -r lk_requirements.txt
+          pip install -r lk_requirments.txt
           echo finish_pip_installation
                 
       # By default, when you enable GitHub CI/CD integration through the Azure portal, the platform automatically sets the SCM_DO_BUILD_DURING_DEPLOYMENT application setting to true. This triggers the use of Oryx, a build engine that handles application compilation and dependency installation (e.g., pip install) directly on the platform during deployment. Hence, we exclude the antenv virtual environment directory from the deployment artifact to reduce the payload size. 
@@ -69,4 +69,5 @@ jobs:
           slot-name: 'Production'
 
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_D09DE35BC8274D558C54C9FFD8BB2B09 }}
+
 
