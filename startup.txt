@@ -1,2 +1,8 @@
 source antenv/bin/activate
+#!/bin/bash
+echo "===== Environment Check ====="
+echo "VIRTUAL_ENV: $VIRTUAL_ENV"
+which python
+python -c "import sys, os; print('Python Env:', os.environ.get('VIRTUAL_ENV', sys.prefix))"
+echo "============================="
 gunicorn wa_dj_api_intg.wsgi --bind=0.0.0.0:8000 --timeout 120
