@@ -1,5 +1,6 @@
 source antenv/bin/activate
 #!/bin/bash
+apt isnatll ffmpeg -y
 echo "===== Environment Check ====="
 echo "VIRTUAL_ENV: $VIRTUAL_ENV"
 which python
