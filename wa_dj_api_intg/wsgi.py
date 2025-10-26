@@ -9,6 +9,8 @@ https://docs.djangoproject.com/en/4.2/howto/deployment/wsgi/
 
 import os,sys
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+import warnings
+warnings.filterwarnings("ignore", category=SyntaxWarning)
 
 from django.core.wsgi import get_wsgi_application
 
