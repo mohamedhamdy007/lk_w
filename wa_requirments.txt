@@ -149,7 +149,7 @@ livekit-plugins-openai==1.2.6
 livekit-plugins-silero==1.2.6
 livekit-plugins-turn-detector==1.2.6
 livekit-protocol==1.0.5
-livekit_utils @ file:///livekit_utils-0.18.0-py3-none-any.whl
+livekit_utils @ file:///home/runner/work/lk_w/lk_w/livekit_utils-0.18.0-py3-none-any.whl
 llvmlite==0.44.0
 lxml==6.0.1
 markdown-it-py==4.0.0
