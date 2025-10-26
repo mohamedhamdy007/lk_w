@@ -48,3 +48,4 @@ sqlparse==0.5.3
 stack-data==0.6.3
 starlette==0.47.3
 whatsapp-utils==0.37.0
+gunicorn==23.0.0
