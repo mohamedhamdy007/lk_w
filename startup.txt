@@ -1,2 +1,2 @@
-cd lk_w
+source antenv/bin/activate
 gunicorn wa_dj_api_intg.wsgi --bind=0.0.0.0:8000 --timeout 120
