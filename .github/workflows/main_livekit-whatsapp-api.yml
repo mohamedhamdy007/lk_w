@@ -61,6 +61,11 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: python-app
+          
+      - name: Install system dependencies (ffmpeg)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg libsm6 libxext6
       
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v3
@@ -70,6 +75,7 @@ jobs:
           slot-name: 'Production'
 
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_BAB07894FCE2471584718E23959D2249 }}
+
 
 
 
