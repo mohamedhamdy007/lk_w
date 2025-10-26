@@ -149,7 +149,7 @@ livekit-plugins-openai==1.2.6
 livekit-plugins-silero==1.2.6
 livekit-plugins-turn-detector==1.2.6
 livekit-protocol==1.0.5
-livekit_utils @ file:///work/progs/livekit/prod_dep/p_proj/livekit_utils/dist/livekit_utils-0.18.0-py3-none-any.whl#sha256=7ed87cd0a4093e89c298eb388f1ff9477d8c76496126c70b3c4b26f7614bcd7a
+livekit_utils @ file:///livekit_utils-0.18.0-py3-none-any.whl
 llvmlite==0.44.0
 lxml==6.0.1
 markdown-it-py==4.0.0
