@@ -1,13 +1,2 @@
 source antenv/bin/activate
-#!/bin/bash
-apt update
-apt install ffmpeg -y
-echo "===== Environment Check ====="
-echo "VIRTUAL_ENV: $VIRTUAL_ENV"
-which python
-python -c "import sys, os; print('Python Env:', os.environ.get('VIRTUAL_ENV', sys.prefix))"
-echo "============================="
-celery -A wa_dj_api_intg worker -D
-echo "===== start celery ====="
-gunicorn wa_dj_api_intg.wsgi --bind=0.0.0.0:8000 --timeout 120
-#python manage.py runserver 0.0.0.0:8000
+gunicorn wa_app.main:app     --workers 4     --worker-class uvicorn.workers.UvicornWorker     --bind 0.0.0.0:8000     --timeout 120
