@@ -22,18 +22,18 @@ WHATSAPP_TOKEN = sys_conf.get("WHATSAPP_TOKEN")
 PHONE_NUMBER_ID = sys_conf.get("PHONE_NUMBER_ID")
 
 sys_conf = {
-    "audio_ext": os.getenv("AUDIO_EXT"),
-    "VERIFY_TOKEN": os.getenv("VERIFY_TOKEN"),
-    "WHATSAPP_TOKEN": os.getenv("WHATSAPP_TOKEN"),
-    "PHONE_NUMBER_ID": os.getenv("PHONE_NUMBER_ID"),
-    "audio_path": os.getenv("AUDIO_PATH"),
-    "AZURE_SPEECH_KEY": os.getenv("AZURE_SPEECH_KEY"),
-    "AZURE_SPEECH_REGION": os.getenv("AZURE_SPEECH_REGION"),
-    "AZURE_OPENAI_KEY": os.getenv("AZURE_OPENAI_KEY"),
-    "AZURE_OPENAI_ENDPOINT": os.getenv("AZURE_OPENAI_ENDPOINT"),
-    "OPENAI_API_VERSION": os.getenv("OPENAI_API_VERSION"),
-    "AZURE_OPENAI_DEPLOYMENT": os.getenv("AZURE_OPENAI_DEPLOYMENT"),
-    "Globy_caht_api": os.getenv("GLOBY_CHAT_API")
+    "APPSETTING_audio_ext": os.getenv("AUDIO_EXT"),
+    "APPSETTING_VERIFY_TOKEN": os.getenv("VERIFY_TOKEN"),
+    "APPSETTING_WHATSAPP_TOKEN": os.getenv("WHATSAPP_TOKEN"),
+    "APPSETTING_PHONE_NUMBER_ID": os.getenv("PHONE_NUMBER_ID"),
+    "APPSETTING_audio_path": os.getenv("AUDIO_PATH"),
+    "APPSETTING_AZURE_SPEECH_KEY": os.getenv("AZURE_SPEECH_KEY"),
+    "APPSETTING_AZURE_SPEECH_REGION": os.getenv("AZURE_SPEECH_REGION"),
+    "APPSETTING_AZURE_OPENAI_KEY": os.getenv("AZURE_OPENAI_KEY"),
+    "APPSETTING_AZURE_OPENAI_ENDPOINT": os.getenv("AZURE_OPENAI_ENDPOINT"),
+    "APPSETTING_OPENAI_API_VERSION": os.getenv("OPENAI_API_VERSION"),
+    "APPSETTING_AZURE_OPENAI_DEPLOYMENT": os.getenv("AZURE_OPENAI_DEPLOYMENT"),
+    "APPSETTING_Globy_caht_api": os.getenv("GLOBY_CHAT_API")
 }
 logger.info(f"""############# sys_conf
             
@@ -41,7 +41,12 @@ logger.info(f"""############# sys_conf
             {sys_conf}
             
              """)
-
+print(f"""############# sys_conf
+            
+            
+            {sys_conf}
+            
+             """)
 class WebhookView(APIView):
     """
     Handles WhatsApp webhook verification and message reception.
