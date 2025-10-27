@@ -35,13 +35,13 @@ sys_conf = {
     "AZURE_OPENAI_DEPLOYMENT": os.getenv("AZURE_OPENAI_DEPLOYMENT"),
     "Globy_caht_api": os.getenv("Globy_caht_api")
 }
-logger.info(f"""############# sys_conf
+logger.info(f"""############# sys_conf1
             
             
             {sys_conf}
             
              """)
-print(f"""############# sys_conf
+print(f"""############# sys_conf2
             
             
             {sys_conf}
