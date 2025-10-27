@@ -7,6 +7,7 @@ echo "VIRTUAL_ENV: $VIRTUAL_ENV"
 which python
 python -c "import sys, os; print('Python Env:', os.environ.get('VIRTUAL_ENV', sys.prefix))"
 echo "============================="
-celery -A wa_dj_api_intg worker -l info
-gunicorn wa_dj_api_intg.wsgi --bind=0.0.0.0:8000 --timeout 120
+
+gunicorn wa_dj_api_intg.wsgi --bind=0.0.0.0:8000 --timeout 120 --daemon
+celery -A wa_dj_api_intg worker -D
 #python manage.py runserver 0.0.0.0:8000
