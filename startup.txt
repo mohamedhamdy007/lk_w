@@ -1,5 +1,6 @@
 source antenv/bin/activate
 #!/bin/bash
+apt update
 apt install ffmpeg -y
 echo "===== Environment Check ====="
 echo "VIRTUAL_ENV: $VIRTUAL_ENV"
