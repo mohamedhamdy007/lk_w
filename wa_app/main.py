@@ -100,13 +100,13 @@ async def receive_whatsapp_message(request: Request, background_tasks: Backgroun
                         
                         {ag_res}
                         """)
-            raise HTTPException(status_code=400, detail=f"{ag_res["res"]}")       
+            raise HTTPException(status_code=400, detail=f"{ag_res['res']}")       
     except (KeyError, IndexError) as parse_err:
         logger.exception(f"Malformed webhook payload: {parse_err}")
         raise HTTPException(status_code=400, detail="Invalid payload")
 
     except Exception as e:
-        logger.exception(f"Unexpected error while processing webhook: {e}")
+        logger.exception(f"Unexpected error while processing webhook: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
 
      
