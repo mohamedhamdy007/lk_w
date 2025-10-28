@@ -6,8 +6,11 @@ from fastapi import FastAPI, APIRouter,Request, Query, HTTPException,status,Back
 from fastapi.responses import JSONResponse, PlainTextResponse
 from pydantic import BaseModel
 from concurrent.futures import ThreadPoolExecutor
+from .utils.api import get_agent,llm_globy
+from .utils.data import WATextMessage
 from whatsapp_utilsFAPI.utils.utils import (
     send_whatsapp_text_message,
+    send_globy_text_message,
     webhook_check,
     get_message
 )
@@ -24,7 +27,9 @@ sys_conf = {
     "AZURE_OPENAI_ENDPOINT": os.getenv("AZURE_OPENAI_ENDPOINT"),
     "OPENAI_API_VERSION": os.getenv("OPENAI_API_VERSION"),
     "AZURE_OPENAI_DEPLOYMENT": os.getenv("AZURE_OPENAI_DEPLOYMENT"),
-    "Globy_caht_api": os.getenv("Globy_caht_api")
+    "Globy_caht_api": os.getenv("Globy_caht_api"),
+    "Globy_agent_api": os.getenv("Globy_agent_api","https://globby-ai-rev-d6gjf7dugaa2fncm.westeurope-01.azurewebsites.net/list_agent")
+
 }
 # ---------------------- FastAPI App ----------------------
 app = FastAPI(title="WhatsApp Webhook API", version="1.0")
@@ -37,13 +42,6 @@ print(f"######## sys_conf ########\n{sys_conf}\n#########################")
 
 VERIFY_TOKEN = sys_conf["VERIFY_TOKEN"]
 WHATSAPP_TOKEN = sys_conf["WHATSAPP_TOKEN"]
-
-
-class WATextMessage(BaseModel):
-    to: str
-    text: str
-
-
 
 @app.get("/webhook")
 async def verify_webhook(
@@ -61,22 +59,48 @@ async def receive_whatsapp_message(request: Request, background_tasks: Backgroun
     try:
         data = await request.json()
         res = get_message(data)
-        logger.info(f"📩 Incoming message parsed: {res}")
-        if not res.get("res"):
-            return JSONResponse({"status": "no_messages"}, status_code=200)
+        ag_res=get_agent(sys_conf)
+        if ag_res['status']==True:
+            agent_id=ag_res['res']['agent_id']
+            logger.info(f"""📩 Incoming message parsed: {res} == {ag_res}
 
-        msg = res.get("msg", {})
-        if not msg:
-            return JSONResponse({"status": "no_messages"}, status_code=200)
+                            {agent_id}
 
-        from_number = msg.get("from")
-        if "text" in msg:
-            text = msg["text"]["body"]
-            logger.info(f"📨 Text from {from_number}: {text}")
-            background_tasks.add_task(send_whatsapp_text_message, from_number, text, sys_conf)
-            return JSONResponse({"status": "ok"}, status_code=200)   
-        else:
-            raise HTTPException(status_code=400, detail="unsuported process")
+                        """)
+            if not res.get("res"):
+                return JSONResponse({"status": "no_messages"}, status_code=200)
+
+            msg = res.get("msg", {})
+            if not msg:
+                return JSONResponse({"status": "no_messages"}, status_code=200)
+
+            from_number = msg.get("from")
+            print(f"""msg
+            
+                  
+                  {list(msg.keys())}
+                  """)
+            if "text" in list(msg.keys()):
+                text = msg["text"]["body"]
+                logger.info(f"📨 Text from {from_number}: {text}")
+                background_tasks.add_task(llm_globy,from_number, text, sys_conf,agent_id)
+                #background_tasks.add_task(send_whatsapp_text_message, from_number, text, sys_conf)
+                #background_tasks.add_task(send_globy_text_message, from_number, text, sys_conf,agent_id)
+                return JSONResponse({"status": "ok"}, status_code=200)
+           
+            elif "interactive" in list(msg.keys()):
+                logger.info("######## button_reply")
+                text = msg["interactive"]["button_reply"]['id']
+                executor.submit(send_whatsapp_text_message, from_number, text, sys_conf)
+            else:
+                raise HTTPException(status_code=400, detail="unsuported process")
+        elif ag_res['status']==False:
+            logger.info(f""" er:
+                        
+                        
+                        {ag_res}
+                        """)
+            raise HTTPException(status_code=400, detail=f"{ag_res["res"]}")       
     except (KeyError, IndexError) as parse_err:
         logger.exception(f"Malformed webhook payload: {parse_err}")
         raise HTTPException(status_code=400, detail="Invalid payload")

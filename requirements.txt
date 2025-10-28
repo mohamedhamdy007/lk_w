@@ -125,6 +125,6 @@ urllib3==2.5.0
 uvicorn==0.38.0
 vine==5.1.0
 wcwidth==0.2.14
-whatsapp_utilsFAPI==0.8.0
+whatsapp_utilsFAPI==0.14.0
 zipp==3.23.0
 zstandard==0.25.0

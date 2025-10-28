@@ -1,4 +1,2 @@
-apt update -y
-apt install ffmpeg -y
 source antenv/bin/activate
 gunicorn wa_app.main:app     --workers 4     --worker-class uvicorn.workers.UvicornWorker     --bind 0.0.0.0:8000     --timeout 120
